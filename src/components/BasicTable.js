@@ -20,32 +20,32 @@ export default function BasicTable() {
         arr.push(0);
       })
       vals.push([row, arr]);
-      vals.indexOf([row, arr]) === -1 ? vals.push([row, arr]) : console.log("This item already exists");
     });
-    console.log(vals);
     return vals;
   }
   
   function getValue(row, day) {
     for (let index = 0; index < values.length; index++) {
       if(values[index][0] === row) {
-        console.log("getvalue ", values[index][1][day - 1])
-        return values[index][1][day - 1];
+        if(values[index][1][day - 1] !==0) {// Modification ajoutée pour afficher le vide au lieu des zéros
+          return values[index][1][day - 1];
+        }
+        return '';
       }
     }
   }
+
+
   
   function toggle(row, day) {
-    let vals = values;
+    let vals = Object.create(values);
     for (let index = 0; index < vals.length; index++) {
-      console.log(vals[index][0]);
       if(vals[index][0] === row) {
-        vals[index][1][day - 1] = vals[index][1][day - 1] + 0.5;
+        vals[index][1][day - 1] = (vals[index][1][day - 1] + 0.5)%2;
         break;
       }
     }
     setValues(vals);
-    console.log(values);
   }
 
   const [values, setValues] = useState([]);
@@ -82,5 +82,6 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
+
   );
 }
