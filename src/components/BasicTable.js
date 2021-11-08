@@ -94,11 +94,26 @@ export default function BasicTable() {
     setValues(vals);
   }
 
+  function countValues(row) {
+    let c = 0;
+    for (let index = 0; index < values.length; index++) {
+      if(values[index][0] === row) {
+        for (let i = 0; i < NUMBER_OF_DAYS; i++) {
+          if(getValue(row, i)) {
+            c++;
+          }
+        }
+        return c;
+      }
+    }
+  }
+
   const [values, setValues] = useState([]);
   useEffect(() => {
     setValues(fillValuesWithZeros());
   }, []);
   return (
+    <div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -130,6 +145,11 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-
+      {rows.map((row) => {
+        return (
+          <h3 key={row}>Total des {row}: {countValues(row)}</h3>
+        )
+      })}
+    </div>
   );
 }
