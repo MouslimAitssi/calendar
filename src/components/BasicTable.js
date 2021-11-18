@@ -100,7 +100,7 @@ export default function BasicTable() {
       if(values[index][0] === row) {
         for (let i = 0; i < NUMBER_OF_DAYS; i++) {
           if(getValue(row, i)) {
-            c++;
+            c = c + getValue(row, i);
           }
         }
         return c;
@@ -122,7 +122,7 @@ export default function BasicTable() {
               {days.map((day) => (
               <TableCell align="right" key={day}>{day}</TableCell>
               ))}
-              <TableCell>Sélectionner tous</TableCell>
+              <TableCell>Sélectionner tout</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
